@@ -28,7 +28,9 @@ namespace WebApplication1.Controllers
             {
                 process.StartInfo.FileName = "cmd.exe"; // relative path. absolute path works too.
                 process.StartInfo.Arguments = "/c dotnet test";
-                process.StartInfo.WorkingDirectory = "D:\\Projects\\xunittest1\\XUnitTestProject1";
+                process.StartInfo.WorkingDirectory = @"..\XUnitTestProject1";
+                //process.StartInfo.Arguments = @"/c dir"; 
+
                 process.StartInfo.CreateNoWindow = true;
                 process.StartInfo.UseShellExecute = false;
                 process.StartInfo.RedirectStandardOutput = true;
