@@ -24,12 +24,13 @@ namespace WebApplication1.Controllers
         public ActionResult<string> Get()
         {
             string strOutput;
+	    string command = "dotnet test";
             using (var process = new Process())
             {
-                process.StartInfo.FileName = "cmd.exe"; // relative path. absolute path works too.
-                process.StartInfo.Arguments = "/c dotnet test";
-                process.StartInfo.WorkingDirectory = @"..\XUnitTestProject1";
-                //process.StartInfo.Arguments = @"/c dir"; 
+                process.StartInfo.FileName = "/bin/bash"; // relative path. absolute path works too.
+                process.StartInfo.Arguments = "-c \" " + command + " \"";
+                process.StartInfo.WorkingDirectory = @"/XUnitTestProject1";
+                //process.StartInfo.Arguments = @"-c ls"; 
 
                 process.StartInfo.CreateNoWindow = true;
                 process.StartInfo.UseShellExecute = false;
@@ -40,6 +41,7 @@ namespace WebApplication1.Controllers
                 var exited = process.WaitForExit(1000 * 10);     // (optional) wait up to 10 seconds
                 Console.WriteLine($"exit {exited}");
                 strOutput = process.StandardOutput.ReadToEnd();
+		strOutput += process.StandardError.ReadToEnd();
             }
             return strOutput;
         }
