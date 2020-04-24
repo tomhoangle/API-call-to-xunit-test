@@ -28,7 +28,7 @@ namespace WebApplication1.Controllers
             using (var process = new Process())
             {
                 process.StartInfo.FileName = "/bin/bash";
-                process.StartInfo.Arguments = "-c \" " + command + " \"";
+                process.StartInfo.Arguments = "-c \" " + command + @"-l:""trx;LogFileName=testresult.xml"" \"";
                 process.StartInfo.WorkingDirectory = @"../XUnitTestProject12";
 
                 process.StartInfo.CreateNoWindow = true;
