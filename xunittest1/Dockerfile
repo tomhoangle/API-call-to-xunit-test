@@ -1,16 +1,15 @@
-FROM mcr.microsoft.com/dotnet/core/sdk:3.1 AS build-env
-WORKDIR /app
+FROM mcr.microsoft.com/dotnet/core/sdk:3.1 AS build
+COPY . .
+EXPOSE 5000
+WORKDIR /WebApplication1
+ENTRYPOINT ["dotnet", "restore"]
 
-# Copy csproj and restore as distinct layers
-COPY . ./
-RUN dotnet restore
+WORKDIR /XUnitTestProject1
+ENTRYPOINT ["dotnet", "restore"]
 
-# Copy everything else and build
-COPY . ./
-RUN dotnet publish -c Release -o out
+WORKDIR /ConsoleApp1
+ENTRYPOINT ["dotnet", "restore"]
 
-# Build runtime image
-FROM mcr.microsoft.com/dotnet/core/aspnet:3.1
-WORKDIR /app
-COPY --from=build-env /app/out .
-ENTRYPOINT ["dotnet", "aspnetapp.dll"]
+WORKDIR /WebApplication1
+ENTRYPOINT ["ls"]
+ENTRYPOINT ["dotnet", "run"]
